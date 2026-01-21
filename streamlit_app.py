@@ -185,3 +185,30 @@ if not df.empty:
     st.plotly_chart(fig, use_container_width=True)
 else:
     st.error("Gagal mengambil data dari Yahoo Finance. Coba refresh halaman.")
+# 2. Sidebar Navigation
+with st.sidebar:
+    # Logo / Judul Sidebar
+    st.markdown("### 🔴 **Streamlit**")
+    st.write("") # Spasi
+    
+    # Navigasi Menu dengan Ikon
+    # Kita menggunakan kamus (dictionary) untuk memetakan ikon ke nama menu
+    menu_options = {
+        "🌐 Live Screener": "Live Screener",
+        "📈 Grade A Signals": "Grade A Signals",
+        "⚙️ Risk Settings": "Risk Settings",
+        "📄 Execution Tickets": "Execution Tickets"
+    }
+    
+    # Membuat menu pilihan
+    selection = st.radio(
+        label="Menu Navigation",
+        options=list(menu_options.keys()),
+        label_visibility="collapsed" # Menyembunyikan label agar lebih bersih
+    )
+    
+    # Mengambil nilai murni (tanpa ikon) untuk logika program
+    current_menu = menu_options[selection]
+
+    st.write("---")
+    st.caption("Prop Desk v1.0")
