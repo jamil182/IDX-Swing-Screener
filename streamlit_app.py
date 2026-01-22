@@ -20,8 +20,8 @@ def get_data():
     for t in tickers:
         try:
             stock = yf.Ticker(t)
-            # Ambil data 5 hari terakhir
-            df_hist = stock.history(period="5d")
+            # Ambil data 1 hari terakhir
+            df_hist = stock.history(period="1d")
             if df_hist.empty: continue
             
             last_close = df_hist['Close'].iloc[-1]
@@ -50,7 +50,7 @@ def get_data():
 
 # Tampilan Header
 st.title("📈 IDX Live Stock Screener")
-st.write(f"Update Terakhir: {datetime.now().strftime('%H:%M:%S')} WIB")
+st.markdown(f"**Last updated:** {waktu_sekarang} WIB")
 
 # Load Data
 df = get_data()
