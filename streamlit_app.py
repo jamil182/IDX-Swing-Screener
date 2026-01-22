@@ -157,7 +157,7 @@ def get_data():
             atr_val = (df_hist['High'] - df_hist['Low']).mean()
             atr_pct = (atr_val / last_close) * 100
             
-for t in tickers:
+     for t in tickers:
         try:
             stock = yf.Ticker(t)
             # Ambil data 5 hari terakhir
