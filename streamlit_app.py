@@ -3,6 +3,9 @@ import pandas as pd
 import yfinance as yf
 import plotly.express as px
 from datetime import datetime
+import streamlit as st
+from streamlit_autorefresh import st_autorefresh
+import pytz # Tambahkan ini di requirements.txt untuk zona waktu WIB
 
 # Setup Halaman
 st.set_page_config(page_title="IDX PROP DESK", layout="wide")
