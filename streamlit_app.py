@@ -50,7 +50,7 @@ def get_data():
 
 # Tampilan Header
 st.title("📈 IDX Live Stock Screener")
-st.markdown(f"**Last updated:** {waktu_sekarang} WIB")
+st.markdown(f"**Last updated:** {waktu_sekarang} WIB (Auto-refresh every 15s)")
 
 # Load Data
 df = get_data()
