@@ -153,7 +153,7 @@ def get_data():
             
             # Penentuan Grade
             
-         grade = "No grade"
+            grade = "No grade"
             edge = "-"
             if change_pct > 1.2 and atr_pct > 1.8:
                 grade = "Grade A"
