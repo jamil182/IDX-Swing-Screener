@@ -215,10 +215,7 @@ with st.sidebar:
 
 from streamlit_option_menu import option_menu
 
-# 2. Sidebar Navigation
-with st.sidebar:
-    st.markdown("### 🔴 **Streamlit**")
-    st.write("")
+
 
 # Logika untuk menampilkan konten berdasarkan menu yang dipilih
 if selected == "Live Screener":
