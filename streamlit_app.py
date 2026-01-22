@@ -7,30 +7,26 @@ from streamlit_autorefresh import st_autorefresh
 import streamlit as st
 import pytz # Tambahkan ini di requirements.txt untuk zona waktu WIB
 
-# Setup Halaman
+# 1. Setup Halaman (Harus di paling atas)
 st.set_page_config(page_title="IDX PROP DESK", layout="wide")
 
 # 2. Trigger Refresh Otomatis (15000ms = 15 detik)
 # Letakkan ini di luar fungsi agar selalu berjalan
 count = st_autorefresh(interval=15000, key="datarefresh")
 
-# Fungsi Ambil Data
-@st.cache_data(ttl=300)
+# 3. Fungsi Ambil Data dengan Cache yang sesuai (TTL 15 detik)
+@st.cache_data(ttl=15) 
 def get_data():
-    # 1. Tickers list (Level 1 indentation - 4 spaces)
-    tickers = ["AADI.JK", "AALI.JK", "ABBA.JK", "ABDA.JK", "ABMM.JK", "ACES.JK"] # ... add the rest
+    tickers = ["AADI.JK", "AALI.JK", "ABBA.JK", "ABMM.JK", "ACES.JK", "ADRO.JK", "ASII.JK", "BBCA.JK", "BBNI.JK", "BBRI.JK", "TLKM.JK", "GOTO.JK"]
     data_list = []
     
-    # 2. The Loop (Level 1 indentation - must match 'data_list')
     for t in tickers:
         try:
             stock = yf.Ticker(t)
             df_hist = stock.history(period="5d")
-            
-            if df_hist.empty or len(df_hist) < 2: 
+            if df_hist.empty or len(df_hist) < 2:
                 continue
-            
-            # 3. Calculations (Level 2 indentation - 8 spaces)
+                
             last_close = df_hist['Close'].iloc[-1]
             prev_close = df_hist['Close'].iloc[-2]
             change = ((last_close - prev_close) / prev_close) * 100
@@ -54,10 +50,24 @@ def get_data():
                 "ATR %": round(atr_pct, 2),
                 "Grade": grade
             })
-        except Exception:
+        except:
             continue
-            
     return pd.DataFrame(data_list)
+
+# --- BAGIAN TAMPILAN ---
+wib = pytz.timezone('Asia/Jakarta')
+waktu_sekarang = datetime.now(wib).strftime('%H:%M:%S')
+
+st.title("📈 IDX Live Stock Screener")
+st.markdown(f"**Last updated:** {waktu_sekarang} WIB (Auto-refresh every 15s)")
+
+df = get_data()
+
+if not df.empty:
+    st.metric("Total Stocks Monitored:", len(df))
+    st.dataframe(df, use_container_width=True, hide_index=True)
+else:
+    st.warning("Sedang mengambil data...")
 
 # Tampilan Header
 st.title("📈 IDX Live Stock Screener")
