@@ -260,8 +260,7 @@ elif selected == "Risk Settings":
         risk_amount = capital * (risk_per_trade / 100)
         st.success(f"Settings Saved! Maksimal risiko per trade Anda adalah: Rp {risk_amount:,.0f}")
 
-
-    elif selected == "Execution Tickets":
+elif selected == "Execution Tickets":
     st.subheader("📄 Execution Tickets")
     st.write("Silakan upload daftar saham dalam format Excel (.xlsx) dari IDX untuk diproses.")
     
