@@ -346,12 +346,7 @@ if not df.empty:
 else:
     jumlah_grade_a = 0
 
-# --- TAMPILAN HEADER (Sesuai Gambar) ---
-col1, col2 = st.columns([3, 1])
 
-
-
-with col2:
     # Membuat kotak hijau "Grade A Signals" seperti di Screenshot 21
     st.markdown(
         f"""
