@@ -219,29 +219,6 @@ from streamlit_option_menu import option_menu
 with st.sidebar:
     st.markdown("### 🔴 **Streamlit**")
     st.write("")
-    
-    # Membuat Menu Navigasi Bergaya Pro
-    selected = option_menu(
-        menu_title=None,  # Tidak pakai judul menu
-        options=["Live Screener", "Grade A Signals", "Risk Settings", "Execution Tickets"],
-        icons=["globe", "graph-up-arrow", "gear", "file-text"], # Nama ikon bootstrap
-        menu_icon="cast",
-        default_index=0,
-        styles={
-            "container": {"padding": "0!important", "background-color": "#f0f2f6"},
-            "icon": {"color": "#444", "font-size": "18px"}, 
-            "nav-link": {
-                "font-size": "16px", 
-                "text-align": "left", 
-                "margin": "0px", 
-                "--hover-color": "#eee"
-            },
-            "nav-link-selected": {"background-color": "#4e8df5"}, # Warna biru saat terpilih
-        }
-    )
-    
-    st.write("---")
-    st.caption("Prop Desk v1.0")
 
 # Logika untuk menampilkan konten berdasarkan menu yang dipilih
 if selected == "Live Screener":
