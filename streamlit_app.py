@@ -190,23 +190,6 @@ with col_head1:
     )
     st.caption("Auto-refreshing screener for IDX stocks with real-time data.")
 
-with col_head2:
-    # Mengambil jumlah Grade A dari dataframe (asumsi variabel df sudah ada)
-    # df = get_data() 
-    jumlah_grade_a = len(df[df['Grade'] == "Grade A"]) if 'df' in locals() else 0
-    
-    st.markdown(
-        f"""
-        <div style="background-color: #74b18c; padding: 15px; border-radius: 5px; color: white; text-align: center;">
-            <div style="font-size: 14px;">Grade A Signals:</div>
-            <div style="font-size: 36px; font-weight: bold;">{jumlah_grade_a}</div>
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
-
-st.write("---")
-
 # Load Data
 df = get_data()
 
