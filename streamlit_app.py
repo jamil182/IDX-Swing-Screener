@@ -196,7 +196,28 @@ df = get_data()
 if not df.empty:
     # Metric Grade A
     grade_a = len(df[df['Grade'] == "Grade A"])
-    st.metric("Grade A Signals:", grade_a)
+    if not df.empty:
+    # 1. Hitung jumlah Grade A
+    grade_a = len(df[df['Grade'] == "Grade A"])
+    
+    # 2. Tampilkan dengan HTML kustom agar background berwarna hijau #74b18c
+    st.markdown(
+        f"""
+        <div style="
+            background-color: #74b18c; 
+            padding: 15px; 
+            border-radius: 5px; 
+            color: white; 
+            text-align: center;
+            line-height: 1.2;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        ">
+            <div style="font-size: 18px; font-weight: 500;">Grade A Signals:</div>
+            <div style="font-size: 42px; font-weight: bold;">{grade_a}</div>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
 
 	# Tabel Data
     st.dataframe(df, use_container_width=True, hide_index=True)
