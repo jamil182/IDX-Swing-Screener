@@ -193,12 +193,11 @@ with col_head1:
 # Load Data
 df = get_data()
 
-<div style="background-color: #74b18c; padding: 15px; border-radius: 5px; color: white; text-align: center;">
 if not df.empty:
     # Metric Grade A
     grade_a = len(df[df['Grade'] == "Grade A"])
     st.metric("Grade A Signals:", grade_a)
-	</div>
+
 	# Tabel Data
     st.dataframe(df, use_container_width=True, hide_index=True)
     # Chart ATR
