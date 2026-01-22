@@ -336,9 +336,7 @@ elif selected == "Grade A Signals":
             st.warning("Saat ini tidak ada saham yang memenuhi kriteria Grade A.")
             st.write("Silakan cek kembali saat market sedang trending atau volatil.")
 
-# --- LOGIKA PERHITUNGAN OTOMATIS ---
-# Pastikan ini dijalankan setelah fungsi get_data() dipanggil
-df = get_data()
+
 
 # Menghitung jumlah saham yang memiliki Grade A
 if not df.empty:
