@@ -10,6 +10,12 @@ import pytz # Tambahkan ini di requirements.txt untuk zona waktu WIB
 # Setup Halaman
 st.set_page_config(page_title="IDX PROP DESK", layout="wide")
 
+from streamlit_autorefresh import st_autorefresh
+
+# Menyetel refresh otomatis setiap 15 detik
+# key="datarefresh" digunakan agar Streamlit bisa melacak widget ini
+count = st_autorefresh(interval=15000, key="datarefresh")
+
 # Fungsi Ambil Data
 @st.cache_data(ttl=300)
 def get_data():
@@ -221,9 +227,4 @@ elif selected == "Execution Tickets":
         except Exception as e:
             st.error(f"Terjadi kesalahan saat membaca file: {e}")
     st.info("Parameter ini akan digunakan secara otomatis untuk menghitung 'Edge' dan 'Risk Reward Ratio' pada tabel Live Screener.")
-
-from streamlit_autorefresh import st_autorefresh
-
-# Menyetel refresh otomatis setiap 15 detik
-# key="datarefresh" digunakan agar Streamlit bisa melacak widget ini
-count = st_autorefresh(interval=15000, key="datarefresh")
+	
