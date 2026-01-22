@@ -232,10 +232,6 @@ elif selected == "Risk Settings":
 
 elif selected == "Execution Tickets":
     st.subheader("📄 Execution Tickets")
-    st.write("Riwayat eksekusi order.")
-
-elif selected == "Execution Tickets":
-    st.subheader("📄 Execution Tickets")
     st.write("Silakan upload daftar saham dalam format Excel (.xlsx) dari IDX untuk diproses.")
     
     # Komponen Drag and Drop sesuai Screenshot 18
