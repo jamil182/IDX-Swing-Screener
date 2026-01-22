@@ -233,3 +233,33 @@ elif selected == "Risk Settings":
 elif selected == "Execution Tickets":
     st.subheader("📄 Execution Tickets")
     st.write("Riwayat eksekusi order.")
+
+elif selected == "Execution Tickets":
+    st.subheader("📄 Execution Tickets")
+    st.write("Silakan upload daftar saham dalam format Excel (.xlsx) dari IDX untuk diproses.")
+    
+    # Komponen Drag and Drop sesuai Screenshot 18
+    uploaded_file = st.file_uploader(
+        "Drag and drop file here", 
+        type=["xlsx"], 
+        help="Limit 200MB per file • XLSX"
+    )
+
+    if uploaded_file is not None:
+        try:
+            # Membaca file excel
+            df_excel = pd.read_excel(uploaded_file)
+            st.success("File berhasil diupload!")
+            
+            # Menampilkan pratinjau data yang diupload
+            st.write("### Preview Daftar Saham")
+            st.dataframe(df_excel, use_container_width=True)
+            
+            # Contoh tombol untuk memproses data tersebut ke screener
+            if st.button("Proses ke Screener"):
+                st.info("Memproses data saham dari Excel...")
+                # Di sini Anda bisa menambahkan logika untuk mengambil kolom Simbol/Ticker 
+                # dan memasukkannya ke fungsi get_data()
+                
+        except Exception as e:
+            st.error(f"Terjadi kesalahan saat membaca file: {e}")
