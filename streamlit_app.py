@@ -3,6 +3,7 @@ import pandas as pd
 import yfinance as yf
 import plotly.express as px
 from datetime import datetime
+from streamlit_autorefresh import st_autorefresh
 import streamlit as st
 import pytz # Tambahkan ini di requirements.txt untuk zona waktu WIB
 
