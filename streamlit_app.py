@@ -157,21 +157,33 @@ def get_data():
             atr_val = (df_hist['High'] - df_hist['Low']).mean()
             atr_pct = (atr_val / last_close) * 100
             
-# --- LOGIKA PENYARINGAN SUPER KETAT ---
-# 1. Change % harus di atas 3% (Momentum Kuat)
-# 2. ATR % harus di atas 3% (Volatilitas Tinggi)
-# 3. Volume hari ini harus > 1.5x Rata-rata Volume 5 hari (Konfirmasi Volume)
+for t in tickers:
+        try:
+            stock = yf.Ticker(t)
+            # Ambil data 5 hari terakhir
+            df_hist = stock.history(period="5d")
+            if df_hist.empty: 
+                continue
+            
+            last_close = df_hist['Close'].iloc[-1]
+            prev_close = df_hist['Close'].iloc[-2]
+            change = ((last_close - prev_close) / prev_close) * 100
+            
+            # Perhitungan ATR Sederhana
+            atr_val = (df_hist['High'] - df_hist['Low']).mean()
+            atr_pct = (atr_val / last_close) * 100
+            
+            # --- LOGIKA PENYARINGAN (INDENTED TO STAY IN TRY BLOCK) ---
+            # Hitung rata-rata volume 5 hari
+            avg_volume_5d = df_hist['Volume'].mean()
+            current_volume = df_hist['Volume'].iloc[-1]
+            grade = "No Grade"
 
-# Hitung rata-rata volume 5 hari
-avg_volume_5d = df_hist['Volume'].mean()
-current_volume = df_hist['Volume'].iloc[-1]
-grade = "No Grade"
-if change > 3.0 and atr_pct > 3.0 and current_volume > (1.5 * avg_volume_5d):
-    grade = "Grade A"
-    edge = f"{round(change * 1.2, 1)}%" # Potensi keunggulan lebih tinggi
-elif change > 1.5 and atr_pct > 2.0:
-    grade = "Grade B"
-    edge = f"{round(change, 1)}%"
+            if change > 3.0 and atr_pct > 3.0 and current_volume > (1.5 * avg_volume_5d):
+                grade = "Grade A"
+                # edge = f"{round(change * 1.2, 1)}%" # Optional: use this if needed
+            elif change > 1.5 and atr_pct > 2.0:
+                grade = "Grade B"
 
             data_list.append({
                 "Symbol": t.replace(".JK", ""),
@@ -180,8 +192,10 @@ elif change > 1.5 and atr_pct > 2.0:
                 "ATR %": round(atr_pct, 2),
                 "Grade": grade
             })
-        except:
+        except Exception as e:
+            # It's better to use 'except Exception:' to catch actual errors
             continue
+
     return pd.DataFrame(data_list)
 
 # Tampilan Header
