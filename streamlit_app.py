@@ -20,8 +20,8 @@ def get_data():
     for t in tickers:
         try:
             stock = yf.Ticker(t)
-            # Ambil data 1 hari terakhir
-            df_hist = stock.history(period="1d")
+            # Ambil data 5 hari terakhir
+            df_hist = stock.history(period="5d")
             if df_hist.empty: continue
             
             last_close = df_hist['Close'].iloc[-1]
