@@ -10,31 +10,6 @@ import pytz # Tambahkan ini di requirements.txt untuk zona waktu WIB
 # Setup Halaman
 st.set_page_config(page_title="IDX PROP DESK", layout="wide")
 
-from streamlit_autorefresh import st_autorefresh
-
-# Menyetel refresh otomatis setiap 15 detik
-# key="datarefresh" digunakan agar Streamlit bisa melacak widget ini
-count = st_autorefresh(interval=15000, key="datarefresh")
-
-# Layout untuk bagian refresh rate (di atas tabel)
-col_refresh_info, col_spacer, col_countdown = st.columns([3, 1, 1])
-
-with col_refresh_info:
-    # Menampilkan teks "Refresh rate 15 seconds" dengan ikon reload
-    st.markdown("🔄 Refresh rate 15 seconds")
-
-with col_countdown:
-    # Menampilkan "Refresh in: 12s" di pojok kanan atas tabel
-    # Catatan: Angka detik ini akan reset setiap kali halaman refresh otomatis
-    st.markdown(
-        f"""
-        <div style="text-align: right; color: #666; font-size: 14px;">
-            <span style="font-size: 18px;">↻</span> Refresh in: <span style="color: #e74c3c;">15s</span> >
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
-	
 # Fungsi Ambil Data
 @st.cache_data(ttl=300)
 def get_data():
@@ -103,6 +78,25 @@ with col_head1:
     )
     st.caption("Auto-refreshing screener for IDX stocks with real-time data.")
 
+# Layout untuk bagian refresh rate (di atas tabel)
+col_refresh_info, col_spacer, col_countdown = st.columns([3, 1, 1])
+
+with col_refresh_info:
+    # Menampilkan teks "Refresh rate 15 seconds" dengan ikon reload
+    st.markdown("🔄 Refresh rate 15 seconds")
+
+with col_countdown:
+    # Menampilkan "Refresh in: 12s" di pojok kanan atas tabel
+    # Catatan: Angka detik ini akan reset setiap kali halaman refresh otomatis
+    st.markdown(
+        f"""
+        <div style="text-align: right; color: #666; font-size: 14px;">
+            <span style="font-size: 18px;">↻</span> Refresh in: <span style="color: #e74c3c;">15s</span> >
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+	
 # Load Data
 df = get_data()
 
@@ -228,3 +222,8 @@ elif selected == "Execution Tickets":
             st.error(f"Terjadi kesalahan saat membaca file: {e}")
     st.info("Parameter ini akan digunakan secara otomatis untuk menghitung 'Edge' dan 'Risk Reward Ratio' pada tabel Live Screener.")
 	
+from streamlit_autorefresh import st_autorefresh
+
+# Menyetel refresh otomatis setiap 15 detik
+# key="datarefresh" digunakan agar Streamlit bisa melacak widget ini
+count = st_autorefresh(interval=15000, key="datarefresh")
