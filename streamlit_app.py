@@ -210,11 +210,6 @@ st.write("---")
 # Load Data
 df = get_data()
 
-if not df.empty:
-    # Metric Grade A
-    grade_a = len(df[df['Grade'] == "Grade A"])
-    st.metric("Grade A Signals", grade_a)
-
     # Tabel Data
     st.dataframe(df, use_container_width=True, hide_index=True)
 
