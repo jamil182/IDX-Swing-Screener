@@ -16,6 +16,25 @@ from streamlit_autorefresh import st_autorefresh
 # key="datarefresh" digunakan agar Streamlit bisa melacak widget ini
 count = st_autorefresh(interval=15000, key="datarefresh")
 
+# Layout untuk bagian refresh rate (di atas tabel)
+col_refresh_info, col_spacer, col_countdown = st.columns([3, 1, 1])
+
+with col_refresh_info:
+    # Menampilkan teks "Refresh rate 15 seconds" dengan ikon reload
+    st.markdown("🔄 Refresh rate 15 seconds")
+
+with col_countdown:
+    # Menampilkan "Refresh in: 12s" di pojok kanan atas tabel
+    # Catatan: Angka detik ini akan reset setiap kali halaman refresh otomatis
+    st.markdown(
+        f"""
+        <div style="text-align: right; color: #666; font-size: 14px;">
+            <span style="font-size: 18px;">↻</span> Refresh in: <span style="color: #e74c3c;">15s</span> >
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+	
 # Fungsi Ambil Data
 @st.cache_data(ttl=300)
 def get_data():
@@ -133,25 +152,6 @@ with st.sidebar:
     
     st.write("---")
     st.caption("Prop Desk v1.0")
-
-# Layout untuk bagian refresh rate (di atas tabel)
-col_refresh_info, col_spacer, col_countdown = st.columns([3, 1, 1])
-
-with col_refresh_info:
-    # Menampilkan teks "Refresh rate 15 seconds" dengan ikon reload
-    st.markdown("🔄 Refresh rate 15 seconds")
-
-with col_countdown:
-    # Menampilkan "Refresh in: 12s" di pojok kanan atas tabel
-    # Catatan: Angka detik ini akan reset setiap kali halaman refresh otomatis
-    st.markdown(
-        f"""
-        <div style="text-align: right; color: #666; font-size: 14px;">
-            <span style="font-size: 18px;">↻</span> Refresh in: <span style="color: #e74c3c;">15s</span> >
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
 
 # Logika untuk menampilkan konten berdasarkan menu yang dipilih
 if selected == "Live Screener":
