@@ -151,25 +151,17 @@ def get_data():
             atr_val = (df_hist['High'] - df_hist['Low']).mean()
             atr_pct = (atr_val / last_close) * 100
             
-            # Logika Grade
-            grade = "No grade"
-            edge = "-"
-            if change_pct > 1.2 and atr_pct > 1.8:
-                grade = "Grade A"
-                edge = f"{round(change_pct + 0.5, 1)}%"
-            elif change_pct > 0.5:
-                grade = "Grade B"
-                edge = f"{round(change_pct + 0.2, 1)}%"
+            # Penentuan Grade
+            grade = "No Grade"
+            if change > 1.0 and atr_pct > 1.5: grade = "Grade A"
+            elif change > 0.5: grade = "Grade B"
 
             data_list.append({
                 "Symbol": t.replace(".JK", ""),
-                "Price": f"{price:,.0f}",
-                "Change %": round(change_pct, 2),
-                "Buy Vol": f"{h['Volume'].iloc[-1]/1e6:.1f}M",
-                "Sell Vol": f"{(h['Volume'].iloc[-1]*0.95)/1e6:.1f}M",
-                "ATR %": round(atr_pct, 1),
-                "Grade": grade,
-                "Edge": edge
+                "Price": int(last_close),
+                "Change %": round(change, 2),
+                "ATR %": round(atr_pct, 2),
+                "Grade": grade
             })
         except:
             continue
