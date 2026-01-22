@@ -195,7 +195,6 @@ df = get_data()
 
 if not df.empty:
     # Metric Grade A
-    grade_a = len(df[df['Grade'] == "Grade A"])
     st.metric(if not df.empty:
     # 1. Hitung jumlah Grade A
     grade_a = len(df[df['Grade'] == "Grade A"])
