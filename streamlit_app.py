@@ -69,22 +69,7 @@ if not df.empty:
 else:
     st.warning("Sedang mengambil data...")
 
-# 3. Tampilan Header Live (Sesuai Gambar Utama)
-col_head1, col_head2 = st.columns([3, 1])
 
-with col_head1:
-    # Menampilkan indikator titik hijau dan waktu live
-    st.markdown(
-        f"""
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="color: #28a745; font-size: 20px;">●</span>
-            <span style="font-weight: bold;">IDX Market LIVE</span>
-            <span style="color: #666;">| Last updated: {waktu_sekarang} WIB</span>
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
-    st.caption("Auto-refreshing screener for IDX stocks with real-time data.")
 
 # Layout untuk bagian refresh rate (di atas tabel)
 col_refresh_info, col_spacer, col_countdown = st.columns([3, 1, 1])
