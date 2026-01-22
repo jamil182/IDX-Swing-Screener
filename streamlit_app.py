@@ -164,10 +164,13 @@ def get_data():
             
             data_list.append({
                 "Symbol": t.replace(".JK", ""),
-                "Price": int(last_close),
-                "Change %": round(change, 2),
-                "ATR %": round(atr_pct, 2),
-                "Grade": grade
+                "Price": f"{price:,.0f}",
+                "Change %": round(change_pct, 2),
+                "Buy Vol": f"{h['Volume'].iloc[-1]/1e6:.1f}M",
+                "Sell Vol": f"{(h['Volume'].iloc[-1]*0.95)/1e6:.1f}M",
+                "ATR %": round(atr_pct, 1),
+                "Grade": grade,
+                "Edge": edge
             })
         except:
             continue
