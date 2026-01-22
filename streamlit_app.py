@@ -336,3 +336,38 @@ elif selected == "Grade A Signals":
             st.warning("Saat ini tidak ada saham yang memenuhi kriteria Grade A.")
             st.write("Silakan cek kembali saat market sedang trending atau volatil.")
 
+# --- LOGIKA PERHITUNGAN OTOMATIS ---
+# Pastikan ini dijalankan setelah fungsi get_data() dipanggil
+df = get_data()
+
+# Menghitung jumlah saham yang memiliki Grade A
+if not df.empty:
+    jumlah_grade_a = len(df[df['Grade'] == "Grade A"])
+else:
+    jumlah_grade_a = 0
+
+# --- TAMPILAN HEADER (Sesuai Gambar) ---
+col1, col2 = st.columns([3, 1])
+
+with col1:
+    st.markdown("📈 IDX Live Stock Screener")
+    st.write("Auto-refreshing screener for IDX stocks with real-time data.")
+
+with col2:
+    # Membuat kotak hijau "Grade A Signals" seperti di Screenshot 21
+    st.markdown(
+        f"""
+        <div style="
+            background-color: #74b18c; 
+            padding: 20px; 
+            border-radius: 5px; 
+            color: white; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;">
+            <span style="font-size: 24px; font-weight: bold;">Grade A Signals:</span>
+            <span style="font-size: 48px; font-weight: bold;">{jumlah_grade_a}</span>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
