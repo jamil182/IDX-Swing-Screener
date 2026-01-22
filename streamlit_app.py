@@ -33,7 +33,7 @@ def get_data():
             atr_pct = (atr_val / last_close) * 100
             
             # Penentuan Grade
-            grade = "No Grade"
+            
             if change > 1.0 and atr_pct > 1.5: grade = "Grade A"
             elif change > 0.5: grade = "Grade B"
 
