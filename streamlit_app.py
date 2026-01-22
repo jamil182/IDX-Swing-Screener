@@ -162,7 +162,6 @@ def get_data():
 # 3. Volume hari ini harus > 1.5x Rata-rata Volume 5 hari (Konfirmasi Volume)
 
 # Hitung rata-rata volume 5 hari
-avg_volume_5d = df_hist['Volume'].mean()
 current_volume = df_hist['Volume'].iloc[-1]
 
 grade = "No Grade"
