@@ -90,14 +90,6 @@ with col_countdown:
         unsafe_allow_html=True
     )
 	
-	# Tabel Data
-    st.dataframe(df, use_container_width=True, hide_index=True)
-    # Chart ATR
-    st.subheader("ATR Percent Ranking")
-    fig = px.bar(df, x='Symbol', y='ATR %', color='ATR %', color_continuous_scale='Viridis')
-    st.plotly_chart(fig, use_container_width=True)
-else:
-    st.error("Gagal mengambil data dari Yahoo Finance. Coba refresh halaman.")
 
 from streamlit_option_menu import option_menu
 	
