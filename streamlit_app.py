@@ -210,9 +210,6 @@ st.write("---")
 # Load Data
 df = get_data()
 
-    # Tabel Data
-    st.dataframe(df, use_container_width=True, hide_index=True)
-
     # Chart ATR
     st.subheader("ATR Percent Ranking")
     fig = px.bar(df, x='Symbol', y='ATR %', color='ATR %', color_continuous_scale='Viridis')
