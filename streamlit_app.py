@@ -169,7 +169,7 @@ def get_data():
 
 # Tampilan Header
 st.title("📈 IDX Live Stock Screener")
-st.write(f"**Last updated:** {waktu_sekarang} WIB (Auto-refresh every 15s)")
+st.write(f"Update Terakhir: {waktu_sekarang} WIB (Auto-refresh every 15s)")
 
 # Load Data
 df = get_data()
