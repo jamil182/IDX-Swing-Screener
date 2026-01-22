@@ -151,10 +151,22 @@ def get_data():
             atr_val = (df_hist['High'] - df_hist['Low']).mean()
             atr_pct = (atr_val / last_close) * 100
             
-            # Penentuan Grade
-            grade = "No Grade"
-            if change > 1.0 and atr_pct > 1.5: grade = "Grade A"
-            elif change > 0.5: grade = "Grade B"
+# --- LOGIKA PENYARINGAN SUPER KETAT ---
+# 1. Change % harus di atas 3% (Momentum Kuat)
+# 2. ATR % harus di atas 3% (Volatilitas Tinggi)
+# 3. Volume hari ini harus > 1.5x Rata-rata Volume 5 hari (Konfirmasi Volume)
+
+# Hitung rata-rata volume 5 hari
+avg_volume_5d = df_hist['Volume'].mean()
+current_volume = df_hist['Volume'].iloc[-1]
+
+grade = "No Grade"
+if change > 3.0 and atr_pct > 3.0 and current_volume > (1.5 * avg_volume_5d):
+    grade = "Grade A"
+    edge = f"{round(change * 1.2, 1)}%" # Potensi keunggulan lebih tinggi
+elif change > 1.5 and atr_pct > 2.0:
+    grade = "Grade B"
+    edge = f"{round(change, 1)}%"
 
             data_list.append({
                 "Symbol": t.replace(".JK", ""),
