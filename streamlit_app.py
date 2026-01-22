@@ -4,11 +4,16 @@ import yfinance as yf
 import plotly.express as px
 from datetime import datetime
 import streamlit as st
-from streamlit_autorefresh import st_autorefresh
 import pytz # Tambahkan ini di requirements.txt untuk zona waktu WIB
 
 # Setup Halaman
 st.set_page_config(page_title="IDX PROP DESK", layout="wide")
+
+from streamlit_autorefresh import st_autorefresh
+
+# Menyetel refresh otomatis setiap 15 detik
+# key="datarefresh" digunakan agar Streamlit bisa melacak widget ini
+count = st_autorefresh(interval=15000, key="datarefresh")
 
 # Fungsi Ambil Data
 @st.cache_data(ttl=300)
@@ -252,6 +257,25 @@ with st.sidebar:
     st.write("---")
     st.caption("Prop Desk v1.0")
 
+# Layout untuk bagian refresh rate (di atas tabel)
+col_refresh_info, col_spacer, col_countdown = st.columns([3, 1, 1])
+
+with col_refresh_info:
+    # Menampilkan teks "Refresh rate 15 seconds" dengan ikon reload
+    st.markdown("🔄 Refresh rate 15 seconds")
+
+with col_countdown:
+    # Menampilkan "Refresh in: 12s" di pojok kanan atas tabel
+    # Catatan: Angka detik ini akan reset setiap kali halaman refresh otomatis
+    st.markdown(
+        f"""
+        <div style="text-align: right; color: #666; font-size: 14px;">
+            <span style="font-size: 18px;">↻</span> Refresh in: <span style="color: #e74c3c;">15s</span> >
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+
 # Logika untuk menampilkan konten berdasarkan menu yang dipilih
 if selected == "Live Screener":
     # Masukkan kode tabel screener Anda di sini
@@ -326,14 +350,3 @@ elif selected == "Execution Tickets":
         except Exception as e:
             st.error(f"Terjadi kesalahan saat membaca file: {e}")
     st.info("Parameter ini akan digunakan secara otomatis untuk menghitung 'Edge' dan 'Risk Reward Ratio' pada tabel Live Screener.")
-
-import streamlit as st
-from streamlit_autorefresh import st_autorefresh
-
-# --- KONFIGURASI AUTO REFRESH ---
-# 300000 milidetik = 5 Menit
-# key="counter" digunakan untuk melacak berapa kali refresh terjadi
-count = st_autorefresh(interval=300000, limit=None, key="fscounter")
-
-# --- LANJUTKAN KODE ANDA ---
-st.write(f"Halaman ini akan refresh otomatis setiap 5 menit. Refresh ke-{count}")
