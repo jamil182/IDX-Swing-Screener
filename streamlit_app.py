@@ -227,75 +227,67 @@ elif selected == "Grade A Signals":
     st.write("Daftar sinyal trading aktif akan muncul di sini.")
 
 elif selected == "Risk Settings":
-    st.subheader("⚙️ Risk Settings")
+    st.title("⚙️ Risk Settings")
     st.write("Konfigurasi parameter risiko trading untuk membatasi eksposur portofolio Anda.")
+    
+    st.divider()
 
-elif selected == "Execution Tickets":
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.subheader("Trading Parameters")
+        risk_per_trade = st.number_input("Max Risk per Trade (%)", min_value=0.1, max_value=5.0, value=1.0, step=0.1)
+        max_position = st.slider("Max Open Positions", 1, 20, 5)
+        st.caption("Menentukan berapa persen modal yang siap hilang dalam satu posisi.")
+
+    with col2:
+        st.subheader("Stop Loss & Take Profit")
+        default_sl = st.number_input("Default Stop Loss (%)", min_value=0.5, max_value=20.0, value=5.0)
+        default_tp = st.number_input("Default Take Profit (%)", min_value=1.0, max_value=50.0, value=15.0)
+    
+    st.write("---")
+    
+    # Fitur tambahan: Kalkulator Posisi Sederhana
+    st.subheader("Position Sizing Calculator")
+    capital = st.number_input("Total Trading Capital (IDR)", min_value=1000000, value=10000000, step=1000000)
+    
+    if st.button("Save & Apply Settings"):
+        # Menyimpan nilai ke session state agar bisa dipakai di menu Screener
+        st.session_state['risk_pct'] = risk_per_trade
+        st.session_state['sl_pct'] = default_sl
+        
+        # Hitung risiko nominal
+        risk_amount = capital * (risk_per_trade / 100)
+        st.success(f"Settings Saved! Maksimal risiko per trade Anda adalah: Rp {risk_amount:,.0f}")
+
+
+    elif selected == "Execution Tickets":
     st.subheader("📄 Execution Tickets")
     st.write("Silakan upload daftar saham dalam format Excel (.xlsx) dari IDX untuk diproses.")
-
-st.divider()
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.subheader("Trading Parameters")
-        risk_per_trade = st.number_input("Max Risk per Trade (%)", min_value=0.1, max_value=5.0, value=1.0, step=0.1)
-        max_position = st.slider("Max Open Positions", 1, 20, 5)
-        st.caption("Menentukan berapa persen modal yang siap hilang dalam satu posisi.")
-
-    with col2:
-        st.subheader("Stop Loss & Take Profit")
-        default_sl = st.number_input("Default Stop Loss (%)", min_value=0.5, max_value=20.0, value=5.0)
-        default_tp = st.number_input("Default Take Profit (%)", min_value=1.0, max_value=50.0, value=15.0)
     
-    st.write("---")
+    # Komponen Drag and Drop sesuai Screenshot 18
+    uploaded_file = st.file_uploader(
+        "Drag and drop file here", 
+        type=["xlsx"], 
+        help="Limit 200MB per file • XLSX"
+    )
 
-st.divider()
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.subheader("Trading Parameters")
-        risk_per_trade = st.number_input("Max Risk per Trade (%)", min_value=0.1, max_value=5.0, value=1.0, step=0.1)
-        max_position = st.slider("Max Open Positions", 1, 20, 5)
-        st.caption("Menentukan berapa persen modal yang siap hilang dalam satu posisi.")
-
-    with col2:
-        st.subheader("Stop Loss & Take Profit")
-        default_sl = st.number_input("Default Stop Loss (%)", min_value=0.5, max_value=20.0, value=5.0)
-        default_tp = st.number_input("Default Take Profit (%)", min_value=1.0, max_value=50.0, value=15.0)
-    
-    st.write("---")
-    
-    # Fitur tambahan: Kalkulator Posisi Sederhana
-    st.subheader("Position Sizing Calculator")
-    capital = st.number_input("Total Trading Capital (IDR)", min_value=1000000, value=10000000, step=1000000)
-    
-    if st.button("Save & Apply Settings"):
-        # Menyimpan nilai ke session state agar bisa dipakai di menu Screener
-        st.session_state['risk_pct'] = risk_per_trade
-        st.session_state['sl_pct'] = default_sl
-        
-        # Hitung risiko nominal
-        risk_amount = capital * (risk_per_trade / 100)
-        st.success(f"Settings Saved! Maksimal risiko per trade Anda adalah: Rp {risk_amount:,.0f}")
-
-    st.info("Parameter ini akan digunakan secara otomatis untuk menghitung 'Edge' dan 'Risk Reward Ratio' pada tabel Live Screener.")
-
-
-    
-    # Fitur tambahan: Kalkulator Posisi Sederhana
-    st.subheader("Position Sizing Calculator")
-    capital = st.number_input("Total Trading Capital (IDR)", min_value=1000000, value=10000000, step=1000000)
-    
-    if st.button("Save & Apply Settings"):
-        # Menyimpan nilai ke session state agar bisa dipakai di menu Screener
-        st.session_state['risk_pct'] = risk_per_trade
-        st.session_state['sl_pct'] = default_sl
-        
-        # Hitung risiko nominal
-        risk_amount = capital * (risk_per_trade / 100)
-        st.success(f"Settings Saved! Maksimal risiko per trade Anda adalah: Rp {risk_amount:,.0f}")
-
+    if uploaded_file is not None:
+        try:
+            # Membaca file excel
+            df_excel = pd.read_excel(uploaded_file)
+            st.success("File berhasil diupload!")
+            
+            # Menampilkan pratinjau data yang diupload
+            st.write("### Preview Daftar Saham")
+            st.dataframe(df_excel, use_container_width=True)
+            
+            # Contoh tombol untuk memproses data tersebut ke screener
+            if st.button("Proses ke Screener"):
+                st.info("Memproses data saham dari Excel...")
+                # Di sini Anda bisa menambahkan logika untuk mengambil kolom Simbol/Ticker 
+                # dan memasukkannya ke fungsi get_data()
+                
+        except Exception as e:
+            st.error(f"Terjadi kesalahan saat membaca file: {e}")
     st.info("Parameter ini akan digunakan secara otomatis untuk menghitung 'Edge' dan 'Risk Reward Ratio' pada tabel Live Screener.")
