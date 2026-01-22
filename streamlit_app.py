@@ -169,8 +169,43 @@ def get_data():
 
 # Tampilan Header
 st.title("📈 IDX Live Stock Screener")
-st.write(f"Update Terakhir: {datetime.now().strftime('%H:%M:%S')} WIB")
+# 2. Pengaturan Zona Waktu (WIB)
 wib = pytz.timezone('Asia/Jakarta')
+waktu_sekarang = datetime.now(wib).strftime('%H:%M:%S')
+
+# 3. Tampilan Header Live (Sesuai Gambar Utama)
+col_head1, col_head2 = st.columns([3, 1])
+
+with col_head1:
+    # Menampilkan indikator titik hijau dan waktu live
+    st.markdown(
+        f"""
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="color: #28a745; font-size: 20px;">●</span>
+            <span style="font-weight: bold;">IDX Market LIVE</span>
+            <span style="color: #666;">| Last updated: {waktu_sekarang} WIB</span>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+    st.caption("Auto-refreshing screener for IDX stocks with real-time data.")
+
+with col_head2:
+    # Mengambil jumlah Grade A dari dataframe (asumsi variabel df sudah ada)
+    # df = get_data() 
+    jumlah_grade_a = len(df[df['Grade'] == "Grade A"]) if 'df' in locals() else 0
+    
+    st.markdown(
+        f"""
+        <div style="background-color: #74b18c; padding: 15px; border-radius: 5px; color: white; text-align: center;">
+            <div style="font-size: 14px;">Grade A Signals:</div>
+            <div style="font-size: 36px; font-weight: bold;">{jumlah_grade_a}</div>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+
+st.write("---")
 
 # Load Data
 df = get_data()
@@ -305,41 +340,3 @@ count = st_autorefresh(interval=300000, limit=None, key="fscounter")
 
 # --- LANJUTKAN KODE ANDA ---
 st.write(f"Halaman ini akan refresh otomatis setiap 5 menit. Refresh ke-{count}")
-
-# 2. Pengaturan Zona Waktu (WIB)
-wib = pytz.timezone('Asia/Jakarta')
-waktu_sekarang = datetime.now(wib).strftime('%H:%M:%S')
-
-# 3. Tampilan Header Live (Sesuai Gambar Utama)
-col_head1, col_head2 = st.columns([3, 1])
-
-with col_head1:
-    # Menampilkan indikator titik hijau dan waktu live
-    st.markdown(
-        f"""
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="color: #28a745; font-size: 20px;">●</span>
-            <span style="font-weight: bold;">IDX Market LIVE</span>
-            <span style="color: #666;">| Last updated: {waktu_sekarang} WIB</span>
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
-    st.caption("Auto-refreshing screener for IDX stocks with real-time data.")
-
-with col_head2:
-    # Mengambil jumlah Grade A dari dataframe (asumsi variabel df sudah ada)
-    # df = get_data() 
-    jumlah_grade_a = len(df[df['Grade'] == "Grade A"]) if 'df' in locals() else 0
-    
-    st.markdown(
-        f"""
-        <div style="background-color: #74b18c; padding: 15px; border-radius: 5px; color: white; text-align: center;">
-            <div style="font-size: 14px;">Grade A Signals:</div>
-            <div style="font-size: 36px; font-weight: bold;">{jumlah_grade_a}</div>
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
-
-st.write("---")
