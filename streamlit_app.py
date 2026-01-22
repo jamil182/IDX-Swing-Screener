@@ -69,12 +69,6 @@ if not df.empty:
 else:
     st.warning("Sedang mengambil data...")
 
-# Tampilan Header
-st.title("📈 IDX Live Stock Screener")
-# 2. Pengaturan Zona Waktu (WIB)
-wib = pytz.timezone('Asia/Jakarta')
-waktu_sekarang = datetime.now(wib).strftime('%H:%M:%S')
-
 # 3. Tampilan Header Live (Sesuai Gambar Utama)
 col_head1, col_head2 = st.columns([3, 1])
 
