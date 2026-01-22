@@ -154,7 +154,7 @@ def get_data():
             # Penentuan Grade
             
             if change > 1.0 and atr_pct > 1.5: grade = "Grade A"
-            elif change > 0.5: grade = "Grade B"
+            
 
             data_list.append({
                 "Symbol": t.replace(".JK", ""),
