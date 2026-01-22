@@ -304,5 +304,4 @@ from streamlit_autorefresh import st_autorefresh
 count = st_autorefresh(interval=300000, limit=None, key="fscounter")
 
 # --- LANJUTKAN KODE ANDA ---
-st.title("📈 IDX Live Stock Screener")
 st.write(f"Halaman ini akan refresh otomatis setiap 5 menit. Refresh ke-{count}")
