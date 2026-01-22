@@ -226,10 +226,6 @@ elif selected == "Grade A Signals":
     st.subheader("📈 Grade A Signals")
     st.write("Daftar sinyal trading aktif akan muncul di sini.")
 
-elif selected == "Risk Settings":
-    st.subheader("⚙️ Risk Settings")
-    st.write("Konfigurasi parameter risiko trading.")
-
 elif selected == "Execution Tickets":
     st.subheader("📄 Execution Tickets")
     st.write("Silakan upload daftar saham dalam format Excel (.xlsx) dari IDX untuk diproses.")
