@@ -153,9 +153,15 @@ def get_data():
             
             # Penentuan Grade
             
-            if change > 1.0 and atr_pct > 1.5: grade = "Grade A"
+         grade = "No grade"
+            edge = "-"
+            if change_pct > 1.2 and atr_pct > 1.8:
+                grade = "Grade A"
+                edge = f"{round(change_pct + 0.5, 1)}%"
+            elif change_pct > 0.5:
+                grade = "Grade B"
+                edge = f"{round(change_pct + 0.2, 1)}%"
             
-
             data_list.append({
                 "Symbol": t.replace(".JK", ""),
                 "Price": int(last_close),
