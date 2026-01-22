@@ -4,3 +4,4 @@ yfinance
 plotly
 streamlit-option-menu
 openpyxl
+streamlit-autorefresh
