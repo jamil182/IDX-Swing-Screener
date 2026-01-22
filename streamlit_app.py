@@ -216,11 +216,6 @@ with st.sidebar:
     st.write("---")
     st.caption("Prop Desk v1.0")
 
-# Logika untuk menampilkan konten berdasarkan menu yang dipilih
-if selected == "Live Screener":
-    # Masukkan kode tabel screener Anda di sini
-    st.subheader("🌐 IDX Live Stock Screener")
-    # ... (kode fungsi data dan tabel)
 
 elif selected == "Execution Tickets":
     st.subheader("📄 Execution Tickets")
@@ -294,11 +289,7 @@ if 'risk_pct' not in st.session_state:
 
 # --- LOGIKA MENU OTOMATIS ---
 
-if selected == "Live Screener":
-    st.subheader("🌐 IDX Live Stock Screener")
-    df = get_data() # Fungsi yang mengambil data yfinance
-    if not df.empty:
-        st.dataframe(df, use_container_width=True, hide_index=True)
+
         
         # Chart tetap ditampilkan di bawah
         st.subheader("ATR Percent Ranking")
