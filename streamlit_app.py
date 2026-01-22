@@ -212,3 +212,51 @@ with st.sidebar:
 
     st.write("---")
     st.caption("Prop Desk v1.0")
+
+from streamlit_option_menu import option_menu
+
+# 2. Sidebar Navigation
+with st.sidebar:
+    st.markdown("### 🔴 **Streamlit**")
+    st.write("")
+    
+    # Membuat Menu Navigasi Bergaya Pro
+    selected = option_menu(
+        menu_title=None,  # Tidak pakai judul menu
+        options=["Live Screener", "Grade A Signals", "Risk Settings", "Execution Tickets"],
+        icons=["globe", "graph-up-arrow", "gear", "file-text"], # Nama ikon bootstrap
+        menu_icon="cast",
+        default_index=0,
+        styles={
+            "container": {"padding": "0!important", "background-color": "#f0f2f6"},
+            "icon": {"color": "#444", "font-size": "18px"}, 
+            "nav-link": {
+                "font-size": "16px", 
+                "text-align": "left", 
+                "margin": "0px", 
+                "--hover-color": "#eee"
+            },
+            "nav-link-selected": {"background-color": "#4e8df5"}, # Warna biru saat terpilih
+        }
+    )
+    
+    st.write("---")
+    st.caption("Prop Desk v1.0")
+
+# Logika untuk menampilkan konten berdasarkan menu yang dipilih
+if selected == "Live Screener":
+    # Masukkan kode tabel screener Anda di sini
+    st.subheader("🌐 IDX Live Stock Screener")
+    # ... (kode fungsi data dan tabel)
+    
+elif selected == "Grade A Signals":
+    st.subheader("📈 Grade A Signals")
+    st.write("Daftar sinyal trading aktif akan muncul di sini.")
+
+elif selected == "Risk Settings":
+    st.subheader("⚙️ Risk Settings")
+    st.write("Konfigurasi parameter risiko trading.")
+
+elif selected == "Execution Tickets":
+    st.subheader("📄 Execution Tickets")
+    st.write("Riwayat eksekusi order.")
