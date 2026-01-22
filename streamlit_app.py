@@ -287,27 +287,3 @@ elif selected == "Risk Settings":
 
 
 
-# Menghitung jumlah saham yang memiliki Grade A
-if not df.empty:
-    jumlah_grade_a = len(df[df['Grade'] == "Grade A"])
-else:
-    jumlah_grade_a = 0
-
-
-    # Membuat kotak hijau "Grade A Signals" seperti di Screenshot 21
-    st.markdown(
-        f"""
-        <div style="
-            background-color: #74b18c; 
-            padding: 20px; 
-            border-radius: 5px; 
-            color: white; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;">
-            <span style="font-size: 24px; font-weight: bold;">Grade A Signals:</span>
-            <span style="font-size: 48px; font-weight: bold;">{jumlah_grade_a}</span>
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
