@@ -169,9 +169,8 @@ def get_data():
 
 # Tampilan Header
 st.title("📈 IDX Live Stock Screener")
-st.write(waktu_sekarang = datetime.now(wib).strftime('%H:%M:%S'))
+st.write(f"Update Terakhir: {datetime.now().strftime('%H:%M:%S')} WIB")
 wib = pytz.timezone('Asia/Jakarta')
-waktu_sekarang = datetime.now(wib).strftime('%H:%M:%S')
 
 # Load Data
 df = get_data()
