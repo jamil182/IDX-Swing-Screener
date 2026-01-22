@@ -349,9 +349,7 @@ else:
 # --- TAMPILAN HEADER (Sesuai Gambar) ---
 col1, col2 = st.columns([3, 1])
 
-with col1:
-    st.markdown("📈 IDX Live Stock Screener")
-    st.write("Auto-refreshing screener for IDX stocks with real-time data.")
+
 
 with col2:
     # Membuat kotak hijau "Grade A Signals" seperti di Screenshot 21
