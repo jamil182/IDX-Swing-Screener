@@ -290,3 +290,15 @@ elif selected == "Execution Tickets":
         except Exception as e:
             st.error(f"Terjadi kesalahan saat membaca file: {e}")
     st.info("Parameter ini akan digunakan secara otomatis untuk menghitung 'Edge' dan 'Risk Reward Ratio' pada tabel Live Screener.")
+
+import streamlit as st
+from streamlit_autorefresh import st_autorefresh
+
+# --- KONFIGURASI AUTO REFRESH ---
+# 300000 milidetik = 5 Menit
+# key="counter" digunakan untuk melacak berapa kali refresh terjadi
+count = st_autorefresh(interval=300000, limit=None, key="fscounter")
+
+# --- LANJUTKAN KODE ANDA ---
+st.title("📈 IDX Live Stock Screener")
+st.write(f"Halaman ini akan refresh otomatis setiap 5 menit. Refresh ke-{count}")
