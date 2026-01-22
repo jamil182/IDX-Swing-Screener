@@ -283,49 +283,7 @@ elif selected == "Risk Settings":
 
     st.info("Parameter ini akan digunakan secara otomatis untuk menghitung 'Edge' dan 'Risk Reward Ratio' pada tabel Live Screener.")
 
-# Tambahkan ini di bagian atas untuk menyimpan state jika diperlukan
-if 'risk_pct' not in st.session_state:
-    st.session_state['risk_pct'] = 1.0
 
-# --- LOGIKA MENU OTOMATIS ---
-
-
-        
-        # Chart tetap ditampilkan di bawah
-        st.subheader("ATR Percent Ranking")
-        fig = px.bar(df, x='Symbol', y='ATR %', color='ATR %', color_continuous_scale='RdYlGn_r')
-        st.plotly_chart(fig, use_container_width=True)
-
-elif selected == "Grade A Signals":
-    st.title("📈 Grade A Signals (Automated)")
-    st.write("Menampilkan hanya saham dengan momentum dan profil risiko terbaik saat ini.")
-    
-    df = get_data()
-    
-    if not df.empty:
-        # Filter Otomatis: Hanya ambil yang Grade A
-        grade_a_df = df[df['Grade'] == "Grade A"].copy()
-        
-        if not grade_a_df.empty:
-            # Tampilkan statistik ringkas
-            col1, col2 = st.columns(2)
-            col1.metric("Total Signals", len(grade_a_df))
-            col2.info("Kriteria: Change > 1.0% & ATR > 1.5%")
-            
-            # Tabel khusus Grade A dengan styling hijau
-            st.success("Daftar Saham Terfilter:")
-            st.dataframe(
-                grade_a_df.style.applymap(lambda x: 'background-color: #d4edda', subset=['Grade']),
-                use_container_width=True,
-                hide_index=True
-            )
-            
-            # Tambahkan visualisasi khusus sinyal
-            fig_signal = px.pie(grade_a_df, values='ATR %', names='Symbol', title="Distribution of Grade A Volatility")
-            st.plotly_chart(fig_signal)
-        else:
-            st.warning("Saat ini tidak ada saham yang memenuhi kriteria Grade A.")
-            st.write("Silakan cek kembali saat market sedang trending atau volatil.")
 
 
 
